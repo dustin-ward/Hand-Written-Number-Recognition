@@ -1,5 +1,6 @@
 import NeuralNetwork
 import numpy
+import random
 
 numpy.set_printoptions(suppress=True)
 
@@ -13,17 +14,14 @@ layerSizes = (784,16,16,10)
 
 net = NeuralNetwork.NeuralNetwork(layerSizes)
 
-x = 5
+x = random.randint(0, 5000)
 
-before = net.predict(trainingInputs[x])
-net.SGD(trainingData, 30, 10, 3.0)
-# net.loadParameters()
-net.writeParameters()
+# net.SGD(trainingData, 30, 10, 3.0)
+net.loadParameters()
+# net.writeParameters()
 after = net.predict(trainingInputs[x])
 
-print("Expected Result:")
-print(trainingOutputs[x])
-print("Before Training:")
-print(before)
-print("After Training:")
-print(after)
+print("Actual Number:")
+print(numpy.argmax(trainingOutputs[x]))
+print("Network Prediction:")
+print(numpy.argmax(after))

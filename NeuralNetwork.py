@@ -81,22 +81,14 @@ class NeuralNetwork:
         with open("biases.txt", "rb") as f:
             self.biases = pickle.load(f)
 
-        # self.weights = numpy.loadtxt('weights.csv', delimiter=',')
-        # self.biases = numpy.loadtxt('biases.csv', delimiter=',')
-
     def writeParameters(self):
         with open("weights.txt", "wb") as f:
             pickle.dump(self.weights, f)
         with open("biases.txt", "wb") as f:
             pickle.dump(self.biases, f)
 
-        # for w in self.weights:
-        #     numpy.savetxt('weights.csv', w, delimiter=',')
-        # for b in self.biases:
-        #     numpy.savetxt('biases.csv', b, delimiter=',')
-
 def sigmoid(x):
-    return 1.0 / (1.0 + numpy.exp(-x))
+    return 1 / (1 + numpy.exp(-x))
 
 def sigmoidDerivative(x):
     return sigmoid(x) * (1 - sigmoid(x))
