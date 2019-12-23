@@ -13,12 +13,13 @@ layerSizes = (784,16,16,10)
 
 net = NeuralNetwork.NeuralNetwork(layerSizes)
 
-x = 1
+x = 5
 
 before = net.predict(trainingInputs[x])
-net.SGD(trainingData, 3, 10, 3.0)
+net.SGD(trainingData, 30, 10, 3.0)
+# net.loadParameters()
+net.writeParameters()
 after = net.predict(trainingInputs[x])
-net.printAccuracy(trainingInputs, trainingOutputs)
 
 print("Expected Result:")
 print(trainingOutputs[x])

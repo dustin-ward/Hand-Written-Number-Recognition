@@ -1,5 +1,6 @@
 import numpy
 import random
+import pickle
 
 class NeuralNetwork:
 
@@ -69,10 +70,30 @@ class NeuralNetwork:
             miniBatches = [trainingData[k:k + miniBatchSize] for k in range(0, len(trainingData), miniBatchSize)]
             for miniBatch in miniBatches:
                 self.updateMiniBatch(miniBatch, learningRate)
-            if testData:
-                print("Epoch {0}: {1} / {2}".format(j, self.evaluate(testData), nTest))
-            else:
-                print("Epoch {0} complete".format(j))
+            print("Epoch {0} complete".format(j))
+            inp, outp = zip(*trainingData)
+            self.printAccuracy(inp, outp)
+
+    def loadParameters(self):
+        with open("weights.txt", "rb") as f:
+            self.weights = pickle.load(f)
+
+        with open("biases.txt", "rb") as f:
+            self.biases = pickle.load(f)
+
+        # self.weights = numpy.loadtxt('weights.csv', delimiter=',')
+        # self.biases = numpy.loadtxt('biases.csv', delimiter=',')
+
+    def writeParameters(self):
+        with open("weights.txt", "wb") as f:
+            pickle.dump(self.weights, f)
+        with open("biases.txt", "wb") as f:
+            pickle.dump(self.biases, f)
+
+        # for w in self.weights:
+        #     numpy.savetxt('weights.csv', w, delimiter=',')
+        # for b in self.biases:
+        #     numpy.savetxt('biases.csv', b, delimiter=',')
 
 def sigmoid(x):
     return 1.0 / (1.0 + numpy.exp(-x))
